@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8" />
+    <title>用css构造一棵树</title>
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <style type="text/css">
+        body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.42857143; color: #333; background-color: #fff; }
+        *{ margin: 0; padding: 0; }
+        ul,li{ list-style: none; }
+        a{ color: #3B8CCA; text-decoration: none; }
+        .tree{ color: #3B8CCA; }
+        .tree .input, .tree .menu{ display: inline-block; padding: 5px 10px; line-height: 1.2; border: 1px solid #3B8CCA; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;}
+        .tree .input label{ display: inline-block; width: 100%; height: 100%; }
+        .tree .input:hover, .tree .input.select, .tree .menu:hover, .tree .menu.select{ background: #3B8CCA; color: #ffffff; }
+        .tree li{ padding-top: 20px; margin-left: 15px; padding-left: 25px; position: relative; }
+        .tree li::before{ content: ""; position: absolute; top: 0; left: 0; height: 100%; border-left: 1px solid #3B8CCA; z-index: 10; }
+        .tree li::after{ content: ""; position: absolute; top: 35px; left: 0; width: 25px; border-top: 1px solid #3B8CCA; z-index: 10; }
+        .tree .switch-btn{ position: absolute; top: 15px; left: 5px; width: 12px; height: 12px; font-size: 12px; color: #3B8CCA; border: 2px solid #3B8CCA; border-radius: 6px; text-align: center; line-height: 12px;}
+        .tree li:last-child::before{ height: 35px; }
+        /*去掉根节点的连线*/
+        .tree>ul>li:before, .tree>ul>li:after{ border: none; }
+        .tree input[type=radio], .tree input[type=checkbox]{ display: none; }
+        .delete-btn{ margin-left: 5px;}
+        .move-btn{ display: block; width: 40px; margin: 20px 0 0 20px; border-radius: 5px; color: #fff; background-color: #6ba442; border-color: #5f923b; font-size: 14px; padding: 10px 16px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="test">
+    </div>
+    <a href="#" class="move-btn">移动</a>
+    <script src="http://s1.qhimg.com/!20166620/jquery.min.js"></script>
+    <script type="text/javascript" src="category/tree.js" charset="gbk"></script>
+    <script type="text/javascript" src="multi_level.js"></script>
+    <script>
+        $(function(){
+            //调用方式
+            var tree = new Tree({
+                parent: "#test", //容器id
+                selectType: "checkbox", //选择的类型(单选(radio)还是多选(checkbox),还是菜单（menu）,默认为菜单(menu))
+                formName: "test", //选择的类型是单选(radio)或者多选(checkbox)时，需要指定name值
+                siteId: "551d26f5b348f30f508b4567", //站点id
+                deleteCategoryIds: ["12345","3456"], //不需要显示的节点列表
+                movable: false, //节点是否可以从一个节点移动到另一个节点
+                deletable: true //节点是否可以被删除
+            });
+            tree.init();
+
+            $(".move-btn").on("click", function(e){
+                e.preventDefault();
+                tree.move("55409106b348f3fc7b8b4567", "553c6ab4b348f32c1a8b4569");
+            });
+        });
+    </script>
+</body>
+</html>
